@@ -10,7 +10,6 @@
 #
 # @param package_manage    whether to install the rspamd package
 # @param service_manage    whether to manage the rspamd service
-# @param repo_baseurl	   use a different repo url instead of rspamd.com upstream repo
 # @param manage_package_repo whether to add the upstream package repo to your system (includes {rspamd::repo})
 # @param config_path       the path containing the rspamd config directory
 # @param purge_unmanaged   whether local.d/override.d config files not managed by this module should be purged
@@ -23,16 +22,13 @@ class rspamd (
   Boolean $package_manage,
   String $package_name,
   Boolean $purge_unmanaged,
-  Optional[String] $repo_baseurl,
   Boolean $service_manage,
 ) {
-  contain rspamd::repo
   contain rspamd::install
   contain rspamd::configuration
   contain rspamd::service
 
-  Class['::rspamd::repo']
-  -> Class['::rspamd::install']
+  Class['::rspamd::install']
   -> Class['::rspamd::configuration']
   ~> Class['::rspamd::service']
 }

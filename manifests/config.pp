@@ -152,7 +152,7 @@ define rspamd::config (
   }
   $full_filename = $configfile ? {
     /\./    => $configfile,
-    default => "${configfile}.conf",
+    default => "${configfile}.inc",
   }
   $full_file = "${rspamd::config_path}/${folder}/${full_filename}"
 
